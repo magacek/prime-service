@@ -3,6 +3,10 @@ name: Test, Create Image, Push to Github Container registry
 on:
   push:
 
+permissions:
+  checks: write
+  contents: read
+
 jobs:
   build_and_publish:
     runs-on: ubuntu-latest
