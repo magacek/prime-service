@@ -17,4 +17,5 @@ public class PrimesController {
     public boolean isPrime(@PathVariable int n) {
         return primesService.isPrime(n);
     }
+
 }
