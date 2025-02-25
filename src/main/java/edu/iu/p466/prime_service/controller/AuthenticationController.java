@@ -28,8 +28,8 @@ public class AuthenticationController {
         this.tokenService = tokenService;
     }
 
-    @PostMapping("/register")
-    public boolean register(@RequestBody Customer customer) {
+    @PostMapping("/auth/register")
+    public Customer register(@RequestBody Customer customer) {
         try {
             return authenticationService.register(customer);
         } catch (IOException e) {
@@ -37,7 +37,7 @@ public class AuthenticationController {
         }
     }
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public String login(@RequestBody Customer customer) {
         Authentication authentication = authenticationManager
                 .authenticate(
