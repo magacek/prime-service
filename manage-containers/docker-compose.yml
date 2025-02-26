@@ -12,16 +12,8 @@ services:
       - spring.datasource.url=jdbc:postgresql://primes-database:5432/primes
       - spring.datasource.username=postgres
       - spring.datasource.password=password
-      - spring.jpa.hibernate.ddl-auto=update
-      - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
-      - spring.sql.init.mode=always
-      - logging.level.root=INFO
       - logging.level.org.springframework.security=DEBUG
       - logging.level.edu.iu.p466.prime_service=DEBUG
-      - logging.level.org.springframework.web.cors=TRACE
-      - spring.web.cors.allowed-origins=*
-      - spring.web.cors.allowed-methods=*
-      - spring.web.cors.allowed-headers=*
     restart: "no"
     depends_on:
       - primes-service-database-postgres
