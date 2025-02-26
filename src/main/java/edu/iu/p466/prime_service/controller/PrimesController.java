@@ -3,6 +3,9 @@ package edu.iu.p466.prime_service.controller;
 import edu.iu.p466.prime_service.service.IPrimeService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/primes")
@@ -14,8 +17,10 @@ public class PrimesController {
     }
 
     @GetMapping("/{n}")
-    public boolean isPrime(@PathVariable int n) {
-        return primesService.isPrime(n);
+    public Map<String, Boolean> isPrime(@PathVariable int n) {
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("isPrime", primesService.isPrime(n));
+        return response;
     }
 
 }
