@@ -1,4 +1,13 @@
 services:
+  primes-service-database-postgres:
+    image: postgres:alpine
+    container_name: primes-database
+    ports:
+      - "5001:5432"
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: primes
+
   primes-service:
     image: primes-service
     build:
@@ -12,22 +21,26 @@ services:
       - spring.datasource.url=jdbc:postgresql://primes-database:5432/primes
       - spring.datasource.username=postgres
       - spring.datasource.password=password
-      - logging.level.org.springframework.security=DEBUG
-      - logging.level.edu.iu.p466.prime_service=DEBUG
+      - spring.rabbitmq.host=localhost
+      - spring.rabbitmq.port=5672
+      - spring.rabbitmq.username=guest
+      - spring.rabbitmq.password=guest
     restart: "no"
     depends_on:
       - primes-service-database-postgres
 
-  primes-service-database-postgres:
-    image: postgres:alpine
-    container_name: primes-database
+  gateway-service:
+    image: gateway-service
+    build:
+      context: /Users/mattgacek/Desktop/gateway-service
+      dockerfile: Dockerfile
+    container_name: gateway-service
     ports:
-      - "5001:5432"
+      - "4000:8180"
+    depends_on:
+      - primes-service
     environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: primes
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - server.port=8180
 
 volumes:
   postgres-data:
